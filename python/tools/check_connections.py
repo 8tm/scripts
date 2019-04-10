@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-""" Tool - send email about lost connections"""
-
 # ----------------------------------------------------------------------------------------------------------------------
+
+""" Tool - send email about lost connections"""
 
 __author__ = "Tadeusz Miszczyk"
 __version__ = "1.0.0"
