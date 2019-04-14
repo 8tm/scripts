@@ -5,7 +5,7 @@
 """ Check movies in cinema (HELIOS) """
 
 __author__ = "Tadeusz Miszczyk"
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 
 # ----------------------------------------------------------------------------------------------------------------------
 
@@ -31,8 +31,10 @@ def get_movie_info(source):
     else:
         trailer = ""
 
+    category = source.find('div', {'class': 'movie-category'})
+    category = str(category.find("p")).replace('<p>', '').replace('</p>', '') if category else None
+
     movie_info = str(source.find('figure', {'class': 'movie-media'}).find("img"))
-    category = str(source.find('div', {'class': 'movie-category'}).find("p")).replace('<p>', '').replace('</p>', '')
 
     movie_data = {'title': movie_info.split('"')[1],
                   'url': "https://www.helios.pl{0}".format(str(source.find("a")).split('"')[1]),
@@ -50,18 +52,19 @@ def get_movies(url_address):
     movies = source.find('ul', {'class': 'seances-list'}).findAll('div', {'class': 'movie'})
 
     links, titles = [], []
-    movie_template = """<a href="{trailer}"><img width="100%" style="display:block" src="{poster}"></a>
-<br>Kategoria: {category}<br>
+    movie_template = """<a href="{trailer}"><img width="100%" style="display:block" src="{poster}"></a>{category}
 [<a href="{url}">&nbsp;\"{title}\" w HELIOS&nbsp;</a>]<br>""".replace('\n', '')
 
     for movie in movies:
         movie_data = get_movie_info(movie)
         if movie_data['title'] not in titles:
+            category = "<br>{category}".format(
+                category="Kategoria: {0}<br>".format(movie_data['category']) if movie_data['category'] else "")
             links.append(movie_template.format(title=movie_data['title'],
                                                poster=movie_data['poster'],
                                                url=movie_data['url'],
                                                trailer=movie_data['trailer'],
-                                               category=movie_data['category']))
+                                               category=category))
             titles.append(movie_data['title'])
     return links
 
