@@ -91,12 +91,12 @@ if __name__ == '__main__':
     new_movies = get_movies('https://www.helios.pl/3,Wroclaw/Repertuar/')
     old_movies = load_movies(file_name) if os.path.exists(file_name) else []
     added_movies = [movie for movie in new_movies if movie not in old_movies]
-    save_movies(new_movies, file_name)
 
     email_title = "{0} new movie(s)".format(len(added_movies))
     print("Found {0}".format(email_title))
 
     if added_movies:
+        save_movies(new_movies, file_name)
         zm = {'title': email_title,
               'movies': "<center>{0}</center><br><br>".format(
                   "</center><br><br><center>".join([movie for movie in added_movies]))}
