@@ -11,7 +11,8 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 function change_extension()
-{: ' This function return file_name (string) witch changed extension
+{
+: ' This function return file_name (string) witch changed extension
      :param $1: file name 
      :param $2: new extension (like "html")
      Usage:
