@@ -3,9 +3,9 @@
 : '
     description        :  Add new virtual host to server
     author & copyright :  Tadeusz Miszczyk
-    version            :  1.0.0
+    version            :  1.0.1
     bash_version       >= 4.4.12
-    usage              :  sudo ./add_virtual_host.sh subdomain.domain.ovh
+    usage              :  sudo ./add_virtual_host.sh subdomain.domain.com
 '
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -74,5 +74,7 @@ service apache2 reload
 
 add_new_host "127.0.0.1" "${virtual_host}"
 add_new_host "127.0.0.1" "www.${virtual_host}"
+
+add_new_certificate "${virtual_host}"
 
 #-----------------------------------------------------------------------------------------------------------------------
